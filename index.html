@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV – Steven Dobbelaere</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:     #1a1a1a;
+      --soft:    #555;
+      --faint:   #999;
+      --line:    #e8e8e8;
+      --bg:      #fafaf8;
+      --white:   #ffffff;
+      --accent:  #1a1a1a;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      font-size: 14px;
+    }
+
+    .page {
+      max-width: 794px; /* ~A4 width at 96dpi */
+      margin: 40px auto;
+      background: var(--white);
+      padding: 64px 72px;
+    }
+
+    /* ── TOP ── */
+    .top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 40px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 56px;
+    }
+
+    .top-name {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 2.6rem;
+      line-height: 1.1;
+      letter-spacing: -.3px;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .top-role {
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--faint);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .top-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .top-meta-item {
+      font-size: .82rem;
+      color: var(--soft);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .top-meta-item svg { color: var(--faint); flex-shrink: 0; }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(20%);
+      flex-shrink: 0;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 52px;
+    }
+    .section:last-child { margin-bottom: 0; }
+
+    .section-head {
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 28px;
+    }
+
+    /* ── PROFILE ── */
+    .profile {
+      font-size: .9rem;
+      font-weight: 400;
+      color: var(--soft);
+      line-height: 1.8;
+    }
+
+    /* ── JOBS ── */
+    .job {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 0 32px;
+      margin-bottom: 36px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--line);
+    }
+    .job:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .job-period {
+      font-size: .75rem;
+      color: var(--faint);
+      padding-top: 3px;
+      line-height: 1.6;
+    }
+
+    .job-company {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 1px;
+    }
+    .job-role {
+      font-size: .8rem;
+      color: var(--soft);
+      margin-bottom: 8px;
+    }
+    .job-desc {
+      font-size: .83rem;
+      color: var(--soft);
+      line-height: 1.7;
+    }
+
+    .sub-jobs { margin-top: 6px; }
+    .sub-job {
+      font-size: .8rem;
+      color: var(--soft);
+      padding: 2px 0;
+    }
+    .sub-job strong { font-weight: 600; color: var(--ink); }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+    .tag {
+      font-size: .7rem;
+      color: var(--faint);
+      border: 1px solid var(--line);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    /* ── SKILLS GRID ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 14px 32px;
+    }
+    .skill-label {
+      font-size: .78rem;
+      color: var(--faint);
+      font-weight: 500;
+      padding-top: 1px;
+    }
+    .skill-items {
+      font-size: .83rem;
+      color: var(--soft);
+      line-height: 1.6;
+    }
+
+    /* ── LANGUAGES ── */
+    .lang-row {
+      display: grid;
+      grid-template-columns: 140px 1fr auto;
+      align-items: center;
+      gap: 0 32px;
+      margin-bottom: 12px;
+    }
+    .lang-row:last-child { margin-bottom: 0; }
+    .lang-name  { font-size: .83rem; color: var(--ink); font-weight: 500; }
+    .lang-bar   { height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+    .lang-fill  { height: 100%; background: var(--ink); border-radius: 2px; }
+    .lang-level { font-size: .75rem; color: var(--faint); text-align: right; white-space: nowrap; }
+
+    /* ── EDUCATION ── */
+    .edu-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 0 32px;
+      margin-bottom: 16px;
+    }
+    .edu-row:last-child { margin-bottom: 0; }
+    .edu-year   { font-size: .75rem; color: var(--faint); padding-top: 3px; }
+    .edu-school { font-size: .88rem; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+    .edu-degree { font-size: .8rem; color: var(--soft); }
+
+    /* ── PRINT ── */
+    @media print {
+      @page {
+        size: A4;
+        margin: 18mm 20mm;
+      }
+
+      body {
+        background: white;
+        font-size: 12px;
+      }
+
+      .page {
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+        box-shadow: none;
+      }
+
+      /* keep job entries together where possible */
+      .job          { page-break-inside: avoid; }
+      .section      { page-break-inside: avoid; }
+      .section-head { page-break-after: avoid; }
+
+      /* hide URL artifacts */
+      a::after { content: none !important; }
+
+      /* ensure borders print */
+      .job, .top { border-color: #ccc !important; }
+
+      /* lang bars need explicit -webkit-print-color-adjust */
+      .lang-fill, .tag { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    @media (max-width: 680px) {
+      .page { padding: 36px 24px; margin: 0; }
+      .top  { grid-template-columns: 1fr; }
+      .avatar { display: none; }
+      .job, .skills-grid, .lang-row, .edu-row { grid-template-columns: 1fr; gap: 4px; }
+      .job-period, .skill-label, .edu-year, .lang-level { color: var(--faint); }
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="page">
+
+    <!-- TOP -->
+    <div class="top">
+      <div>
+        <div class="top-name">Steven Dobbelaere</div>
+        <div class="top-role">Web Developer</div>
+        <div class="top-meta">
+          <span class="top-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            Oostduinkerke · werkzaam in Veurne
+          </span>
+        </div>
+      </div>
+      <img
+        class="avatar"
+        src="https://stevendobbelaerebe.wordpress.com/wp-content/uploads/2020/01/steven-dobbelaere-2018.jpg?w=400&h=400&crop=1"
+        alt="Steven Dobbelaere"
+      />
+    </div>
+
+    <!-- PROFIEL -->
+    <div class="section">
+      <div class="section-head">Profiel</div>
+      <p class="profile">
+        Web developer met ruime ervaring in zowel front-end als back-end ontwikkeling.
+        Sterk in PHP-frameworks, WordPress en Vue.js. Combineert technische diepgang
+        met creativiteit, een scherp oog voor detail en een klantgerichte aanpak —
+        van eerste concept tot live productie.
+      </p>
+    </div>
+
+    <!-- WERKERVARING -->
+    <div class="section">
+      <div class="section-head">Werkervaring</div>
+
+      <div v-for="job in jobs" :key="job.company + job.period" class="job">
+        <div class="job-period">{{ job.period }}</div>
+        <div>
+          <div class="job-company">{{ job.company }}</div>
+          <div class="job-role">{{ job.role }}</div>
+          <p v-if="job.desc" class="job-desc">{{ job.desc }}</p>
+          <div v-if="job.subs" class="sub-jobs">
+            <div v-for="sub in job.subs" :key="sub.name" class="sub-job">
+              <strong>{{ sub.name }}</strong> &mdash; {{ sub.what }}
+            </div>
+          </div>
+          <div v-if="job.tags" class="tags">
+            <span v-for="t in job.tags" :key="t" class="tag">{{ t }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VAARDIGHEDEN -->
+    <div class="section">
+      <div class="section-head">Vaardigheden</div>
+      <div class="skills-grid">
+        <template v-for="skill in skills" :key="skill.name">
+          <div class="skill-label">{{ skill.name }}</div>
+          <div class="skill-items">{{ skill.items.join(' · ') }}</div>
+        </template>
+      </div>
+    </div>
+
+    <!-- TALEN -->
+    <div class="section">
+      <div class="section-head">Talen</div>
+      <div v-for="lang in languages" :key="lang.name" class="lang-row">
+        <div class="lang-name">{{ lang.name }}</div>
+        <div class="lang-bar"><div class="lang-fill" :style="{ width: lang.pct + '%' }"></div></div>
+        <div class="lang-level">{{ lang.level }}</div>
+      </div>
+    </div>
+
+    <!-- OPLEIDING -->
+    <div class="section">
+      <div class="section-head">Opleiding</div>
+      <div v-for="edu in education" :key="edu.school" class="edu-row">
+        <div class="edu-year">{{ edu.year }}</div>
+        <div>
+          <div class="edu-school">{{ edu.school }}</div>
+          <div class="edu-degree">{{ edu.degree }}</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+  data() {
+    return {
+      skills: [
+        { name: 'Back-end',          items: ['PHP', 'Symfony', 'CodeIgniter', 'Slim', 'Zend', 'MySQL', 'REST API'] },
+        { name: 'Front-end',         items: ['Vue 3', 'JavaScript', 'jQuery', 'HTML5', 'CSS3', 'Sass', 'Less', 'Gulp'] },
+        { name: 'Frameworks',        items: ['Tailwind', 'Bootstrap', 'Foundation', 'Git', 'Capistrano'] },
+        { name: 'CMS & Servers',     items: ['WordPress', 'Apache', 'Nginx', 'Vagrant'] },
+        { name: 'Design',            items: ['Photoshop', 'Illustrator', 'Affinity Photo'] },
+        { name: 'SEO & Marketing',   items: ['SEO', 'Mailchimp', 'Campaign Monitor', 'Active Campaign'] },
+      ],
+
+      languages: [
+        { name: 'Nederlands', level: 'Moedertaal', pct: 100 },
+        { name: 'Engels',     level: 'Vloeiend',   pct: 85  },
+        { name: 'Frans',      level: 'Goed',        pct: 65  },
+      ],
+
+      education: [
+        { year: '2004 – 2008',   school: 'Artevelde Hogeschool Gent', degree: 'Grafische & Digitale Media' },
+        { year: 'Bijscholing',   school: 'Syntra',                    degree: 'Tuinaannemer & Fietshersteller' },
+      ],
+
+      jobs: [
+        {
+          company: 'Streamovations & Aiko Communications',
+          role:    'Web Developer',
+          period:  'Mei 2018 – heden',
+          desc:    'Ontwikkeling en onderhoud van webapplicaties en streamingplatformen. Verantwoordelijk voor de volledige cyclus: architectuur, API-integraties en UI-implementatie.',
+          tags:    ['Vue.js', 'PHP', 'Symfony', 'API-integraties'],
+        },
+        {
+          company: 'Restaurant Venise & Surfclub Windekind',
+          role:    'Barman / Opdiener (flexijob)',
+          period:  'Mei 2018 – heden',
+        },
+        {
+          company: 'Tricks for Bricks',
+          role:    'Web Developer',
+          period:  'Apr 2017 – Mei 2018',
+          desc:    'Full-stack webontwikkeling voor diverse klantprojecten.',
+          tags:    ['PHP', 'WordPress', 'Front-end'],
+        },
+        {
+          company: 'Kommaboard (consultant)',
+          role:    'Front-end & Back-end Developer',
+          period:  'Dec 2015 – Apr 2017',
+          desc:    'Consultancyopdrachten bij uiteenlopende klanten:',
+          subs: [
+            { name: 'Famous (Groot-Bijgaarden)', what: 'Front-end / WordPress' },
+            { name: 'Wijs (Gent)',               what: 'Back-end – PHP, Symfony' },
+            { name: 'Lunar Gravity',              what: 'Front-end / WordPress' },
+          ],
+          tags: ['PHP', 'Symfony', 'WordPress'],
+        },
+        {
+          company: 'Napoleon Games',
+          role:    'Front-end Developer',
+          period:  'Nov 2013 – Dec 2015',
+          desc:    'Front-end ontwikkeling voor een online gaming platform met hoge traffic en strikte performantie-eisen.',
+          tags:    ['HTML5', 'CSS3', 'JavaScript', 'jQuery'],
+        },
+        {
+          company: 'Wax Interactive',
+          role:    'WordPress / Front-end Developer',
+          period:  'Juni 2013',
+          tags:    ['WordPress', 'Front-end'],
+        },
+        {
+          company: 'markee',
+          role:    'Web Developer',
+          period:  'Feb 2010',
+        },
+        {
+          company: 'Webfizz (zelfstandige)',
+          role:    'Web Developer',
+          period:  'Sept 2008',
+          desc:    'Freelance webontwikkeling als zelfstandige.',
+        },
+        {
+          company: "'t Fonteintje Nieuwpoort",
+          role:    'Barman',
+          period:  '2001 – 2011',
+        },
+      ],
+    };
+  },
+}).mount('#app');
+</script>
+</body>
+</html>
