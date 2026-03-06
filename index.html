@@ -79,14 +79,21 @@
     }
     .top-meta-item svg { color: var(--faint); flex-shrink: 0; }
 
-    .avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center top;
-      filter: grayscale(20%);
+    .avatar-shell {
+      width: 190px;
+      height: 240px;
+      border-radius: 14px;
+      overflow: hidden;
       flex-shrink: 0;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      transform: none;
+      image-rendering: auto;
     }
 
     /* ── SECTION ── */
@@ -241,6 +248,19 @@
       .section      { page-break-inside: avoid; }
       .section-head { page-break-after: avoid; }
 
+      .top {
+        background: none !important;
+        box-shadow: none !important;
+        border-radius: 0;
+        padding: 0 0 40px;
+      }
+      .avatar-shell {
+        width: 120px;
+        height: 145px;
+        box-shadow: none;
+        border-radius: 10px;
+      }
+
       /* hide URL artifacts */
       a::after { content: none !important; }
 
@@ -253,8 +273,16 @@
 
     @media (max-width: 680px) {
       .page { padding: 36px 24px; margin: 0; }
-      .top  { grid-template-columns: 1fr; }
-      .avatar { display: none; }
+      .top  {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 20px 18px 24px;
+      }
+      .avatar-shell {
+        width: 150px;
+        height: 190px;
+        border-radius: 18px;
+      }
       .job, .skills-grid, .lang-row, .edu-row { grid-template-columns: 1fr; gap: 4px; }
       .job-period, .skill-label, .edu-year, .lang-level { color: var(--faint); }
     }
@@ -278,11 +306,13 @@
           </span>
         </div>
       </div>
-      <img
-        class="avatar"
-        src="https://stevendobbelaerebe.wordpress.com/wp-content/uploads/2020/01/steven-dobbelaere-2018.jpg?w=400&h=400&crop=1"
-        alt="Steven Dobbelaere"
-      />
+      <div class="avatar-shell">
+        <img
+          class="avatar"
+          src="assets/steven-dobbelaere.jpg"
+          alt="Steven Dobbelaere"
+        />
+      </div>
     </div>
 
     <!-- PROFIEL -->
